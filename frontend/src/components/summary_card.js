@@ -5,10 +5,15 @@ import { TMDB_IMAGES_BASE_URL } from "../utils/constants";
 
 const { Meta } = Card;
 
-const SummaryCard = ({ title, description, image_endpoint }) => (
+const SummaryCard = ({ title, description, image_endpoint, is_loading }) => (
   <Card
-    className="flex-1 min-w-[250px] max-w-[300px]"
-    cover={<img alt={title} src={`${TMDB_IMAGES_BASE_URL}${image_endpoint}`} />}
+    loading={is_loading}
+    className="flex-1 min-w-[250px] max-w-[300px] flex flex-col"
+    cover={
+      image_endpoint ? (
+        <img alt={title} src={`${TMDB_IMAGES_BASE_URL}${image_endpoint}`} />
+      ) : undefined
+    }
     actions={[
       <Tooltip key="inspect" title="Inspect">
         <EyeOutlined />
@@ -18,7 +23,7 @@ const SummaryCard = ({ title, description, image_endpoint }) => (
       </Tooltip>,
     ]}
   >
-    <Meta title={title} description={description} />
+    <Meta title={title} description={description} className="flex-1" />
   </Card>
 );
 
