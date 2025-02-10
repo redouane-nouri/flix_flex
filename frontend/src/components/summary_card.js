@@ -5,7 +5,7 @@ import { TMDB_IMAGES_BASE_URL } from "../utils/constants";
 
 const { Meta } = Card;
 
-const DetailsCard = ({ title, description, image_endpoint }) => (
+const SummaryCard = ({ title, description, image_endpoint }) => (
   <Card
     className="flex-1 min-w-[250px] max-w-[300px]"
     cover={<img alt={title} src={`${TMDB_IMAGES_BASE_URL}${image_endpoint}`} />}
@@ -22,4 +22,4 @@ const DetailsCard = ({ title, description, image_endpoint }) => (
   </Card>
 );
 
-export default DetailsCard;
+export default SummaryCard;

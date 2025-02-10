@@ -34,7 +34,7 @@ const TopNav = ({ selected_key }) => {
   return (
     <Menu
       mode="horizontal"
-      className="mb-2 w-full font-bold text-md"
+      className="font-bold text-md w-[580px]"
       defaultSelectedKeys={[selected_key]}
       items={items}
     />
