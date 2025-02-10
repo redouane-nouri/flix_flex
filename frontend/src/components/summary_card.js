@@ -1,11 +1,18 @@
 import { EyeOutlined, HeartOutlined } from "@ant-design/icons";
 import { Card, Skeleton, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { TMDB_IMAGES_BASE_URL } from "../utils/constants";
 
 const { Meta } = Card;
 
-const SummaryCard = ({ title, description, image_endpoint, is_loading }) => {
+const SummaryCard = ({
+  title,
+  description,
+  image_endpoint,
+  is_loading,
+  inspect_endpoint,
+}) => {
   const [is_image_loading, set_is_image_loading] = useState(false);
 
   useEffect(() => {
@@ -35,7 +42,9 @@ const SummaryCard = ({ title, description, image_endpoint, is_loading }) => {
       }
       actions={[
         <Tooltip key="inspect" title="Inspect">
-          <EyeOutlined />
+          <Link to={inspect_endpoint}>
+            <EyeOutlined />
+          </Link>
         </Tooltip>,
         <Tooltip key="fav" title="Add to favorites">
           <HeartOutlined />

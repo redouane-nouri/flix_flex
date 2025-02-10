@@ -9,7 +9,7 @@ const MovieDetails = () => {
   return (
     <div className="px-32 flex flex-col items-center gap-8 mt-8">
       <TopNav selected_key="" />
-      <DetailsCard id={id} />
+      <DetailsCard id={id} endpoint="movie" />
     </div>
   );
 };

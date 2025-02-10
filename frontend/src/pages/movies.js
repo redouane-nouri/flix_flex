@@ -77,6 +77,7 @@ const MoviesPage = () => {
             title={local_movies[index]?.title}
             description={local_movies[index]?.overview}
             image_endpoint={local_movies[index]?.poster_path}
+            inspect_endpoint={`/movies/${local_movies[index]?.id}`}
           />
         ))}
       </div>
