@@ -4,6 +4,7 @@ import Stepper from "../components/stepper";
 import SummaryCard from "../components/summary_card";
 import TopNav from "../components/top_nav";
 import api from "../lib/axios/axios";
+import { notification } from "antd";
 
 const MoviesPage = () => {
   const [movies_page, set_movies_page] = useState(1);
@@ -13,6 +14,7 @@ const MoviesPage = () => {
   const [movies, set_movies] = useState([]);
 
   const [is_previous, set_is_revious] = useState(false);
+  const [notif, notif_context] = notification.useNotification();
 
   const { isLoading: is_favorites_loading, data: favorites } = useQuery({
     queryKey: [
@@ -85,6 +87,7 @@ const MoviesPage = () => {
 
   return (
     <div className="px-32 my-6 flex flex-col items-center">
+      {notif_context}
       <TopNav selected_key="movies" />
       <Stepper
         local_page={local_page}
@@ -94,12 +97,14 @@ const MoviesPage = () => {
       <div className="flex justify-center gap-4 mt-7 flex-wrap">
         {Array.from({ length: 10 }).map((_, index) => (
           <SummaryCard
+            id={local_movies[index]?.id}
             is_loading={mutation.isPending}
             key={index}
             title={local_movies[index]?.title}
             description={local_movies[index]?.overview}
             image_endpoint={local_movies[index]?.poster_path}
             inspect_endpoint={`/movies/${local_movies[index]?.id}`}
+            notif={notif}
             is_favorite={
               !is_favorites_loading && is_favorite(local_movies[index]?.id)
             }

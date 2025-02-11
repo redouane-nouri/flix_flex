@@ -1,20 +1,46 @@
 import { EyeOutlined, HeartOutlined } from "@ant-design/icons";
-import { Card, Skeleton, Tooltip } from "antd";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Card, Skeleton, Spin, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import api from "../lib/axios/axios";
 import { TMDB_IMAGES_BASE_URL } from "../utils/constants";
 
 const { Meta } = Card;
 
 const SummaryCard = ({
+  id,
   title,
   description,
   image_endpoint,
   is_loading,
   inspect_endpoint,
   is_favorite,
+  notif,
 }) => {
   const [is_image_loading, set_is_image_loading] = useState(false);
+  const query_client = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: () =>
+      api.post("/account/null/favorite", {
+        media_id: id,
+        media_type: "movie",
+        favorite: !is_favorite,
+      }),
+    onSuccess: () => {
+      notif.success({
+        message: "Update Successfully",
+        description: is_favorite
+          ? "Movie removed from favorites list."
+          : "Movie Added to favorites list.",
+        showProgress: true,
+        pauseOnHover: true,
+      });
+      query_client.invalidateQueries({
+        queryKey: ["account", null, "favorite", "movies"],
+      });
+    },
+  });
 
   useEffect(() => {
     set_is_image_loading(true);
@@ -49,9 +75,18 @@ const SummaryCard = ({
         </Tooltip>,
         <Tooltip
           key="fav"
-          title={`${is_favorite ? "Remove from favorites" : "Add to favorites"}`}
+          title={`${
+            is_favorite ? "Remove from favorites" : "Add to favorites"
+          }`}
         >
-          <HeartOutlined style={{ color: `${is_favorite ? "red" : ""}` }} />
+          {mutation.isPending ? (
+            <Spin />
+          ) : (
+            <HeartOutlined
+              onClick={() => mutation.mutate()}
+              style={{ color: `${is_favorite ? "red" : ""}` }}
+            />
+          )}
         </Tooltip>,
       ]}
     >
