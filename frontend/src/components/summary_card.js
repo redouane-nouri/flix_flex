@@ -12,6 +12,7 @@ const SummaryCard = ({
   image_endpoint,
   is_loading,
   inspect_endpoint,
+  is_favorite,
 }) => {
   const [is_image_loading, set_is_image_loading] = useState(false);
 
@@ -46,8 +47,11 @@ const SummaryCard = ({
             <EyeOutlined />
           </Link>
         </Tooltip>,
-        <Tooltip key="fav" title="Add to favorites">
-          <HeartOutlined />
+        <Tooltip
+          key="fav"
+          title={`${is_favorite ? "Remove from favorites" : "Add to favorites"}`}
+        >
+          <HeartOutlined style={{ color: `${is_favorite ? "red" : ""}` }} />
         </Tooltip>,
       ]}
     >

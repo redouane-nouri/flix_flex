@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import Stepper from "../components/stepper";
 import SummaryCard from "../components/summary_card";
@@ -14,12 +14,27 @@ const MoviesPage = () => {
 
   const [is_previous, set_is_revious] = useState(false);
 
+  const { isLoading: is_favorites_loading, data: favorites } = useQuery({
+    queryKey: [
+      "account",
+      null,
+      "favorite",
+      "movies",
+      { language: "en-US", page: 1, sort_by: "created_at.asc" },
+    ],
+    queryFn: () =>
+      api
+        .get(
+          "/account/null/favorite/movies?language=en-US&page=1&sort_by=created_at.asc",
+        )
+        .then((res) => res.data.results),
+  });
+
   const mutation = useMutation({
-    mutationFn: () => {
-      return api
+    mutationFn: () =>
+      api
         .get(`/movie/popular?language=en-US&page=${movies_page}`)
-        .then((res) => res.data);
-    },
+        .then((res) => res.data),
     onSuccess: (data) => {
       set_movies(data.results);
 
@@ -63,6 +78,11 @@ const MoviesPage = () => {
     }
   };
 
+  const is_favorite = (id) => {
+    if (!id) return false;
+    return favorites.some((movie) => movie.id === id);
+  };
+
   return (
     <div className="px-32 my-6 flex flex-col items-center">
       <TopNav selected_key="movies" />
@@ -80,6 +100,9 @@ const MoviesPage = () => {
             description={local_movies[index]?.overview}
             image_endpoint={local_movies[index]?.poster_path}
             inspect_endpoint={`/movies/${local_movies[index]?.id}`}
+            is_favorite={
+              !is_favorites_loading && is_favorite(local_movies[index]?.id)
+            }
           />
         ))}
       </div>
