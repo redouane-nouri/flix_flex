@@ -50,7 +50,9 @@ const DetailsCard = ({ id, endpoint }) => {
             <Typography className="font-semibold border-b-2 mr-2">
               Title:{" "}
             </Typography>
-            <Typography>{data.title}</Typography>
+            <Typography>
+              {endpoint === "movie" ? data.title : data.name}
+            </Typography>
           </div>
           <div className="flex items-start">
             <Typography className="font-semibold border-b-2 mr-2 text-nowrap">
@@ -58,28 +60,32 @@ const DetailsCard = ({ id, endpoint }) => {
             </Typography>
             <Typography>{data.status}</Typography>
           </div>
-          <div className="flex items-start">
-            <Typography className="font-semibold border-b-2 mr-2 text-nowrap">
-              Budget:{" "}
-            </Typography>
-            <Typography>
-              {data.budget.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
-            </Typography>
-          </div>
-          <div className="flex items-start">
-            <Typography className="font-semibold border-b-2 mr-2 text-nowrap">
-              Revenue:{" "}
-            </Typography>
-            <Typography>
-              {data.revenue.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
-            </Typography>
-          </div>
+          {endpoint === "movie" && (
+            <div className="flex items-start">
+              <Typography className="font-semibold border-b-2 mr-2 text-nowrap">
+                Budget:{" "}
+              </Typography>
+              <Typography>
+                {data.budget.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </Typography>
+            </div>
+          )}
+          {endpoint === "movie" && (
+            <div className="flex items-start">
+              <Typography className="font-semibold border-b-2 mr-2 text-nowrap">
+                Revenue:{" "}
+              </Typography>
+              <Typography>
+                {data.revenue.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </Typography>
+            </div>
+          )}
           <div className="flex items-start">
             <Typography className="font-semibold border-b-2 mr-2 text-nowrap">
               Relese Date:{" "}
@@ -122,7 +128,9 @@ const DetailsCard = ({ id, endpoint }) => {
           </Typography.Title>
           {is_trailer_loading && <Spin />}
           <iframe
-            className={`rounded-md self-center ${is_trailer_loading ? "hidden" : "block"}`}
+            className={`rounded-md self-center ${
+              is_trailer_loading ? "hidden" : "block"
+            }`}
             width="711"
             height="400"
             src={`https://www.youtube.com/embed/${video.key}`}
