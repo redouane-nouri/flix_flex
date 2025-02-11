@@ -7,6 +7,8 @@ import { TMDB_IMAGES_BASE_URL } from "../utils/constants";
 
 const DetailsCard = ({ id, endpoint }) => {
   const [video, set_video] = useState([]);
+  const [is_trailer_loading, set_is_trailer_loading] = useState(true);
+
   const { isLoading, data, error } = useQuery({
     queryKey: [endpoint, id],
     queryFn: () =>
@@ -118,12 +120,14 @@ const DetailsCard = ({ id, endpoint }) => {
           <Typography.Title className="border-b-2" level={3}>
             Watch Trailer
           </Typography.Title>
+          {is_trailer_loading && <Spin />}
           <iframe
-            className="rounded-md self-center"
+            className={`rounded-md self-center ${is_trailer_loading ? "hidden" : "block"}`}
             width="711"
             height="400"
             src={`https://www.youtube.com/embed/${video.key}`}
             title="Trailer"
+            onLoad={() => set_is_trailer_loading(false)}
             allowFullScreen
           ></iframe>
         </div>

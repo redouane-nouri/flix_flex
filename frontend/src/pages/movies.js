@@ -38,6 +38,7 @@ const MoviesPage = () => {
   }, []);
 
   const handle_next_click = () => {
+    window.scrollTo({ top: 0 });
     const next_page = local_page + 1;
     if (next_page % 2 === 0) {
       set_local_movies(movies.slice(10, 20));
@@ -50,6 +51,7 @@ const MoviesPage = () => {
   };
 
   const handle_previous_click = () => {
+    window.scrollTo({ top: 0 });
     const previous_page = Math.max(local_page - 1, 1);
     if (previous_page % 2 !== 0) {
       set_local_movies(movies.slice(0, 10));
