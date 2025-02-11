@@ -1,13 +1,8 @@
 import React from "react";
-import TopNav from "../components/top_nav";
+import MoviesTVsPage from "./movies_tv_page";
 
-const TvPage = () => {
-  return (
-    <div className="px-32 my-6 flex flex-col items-center">
-      <TopNav selected_key="tv" />
-      <div className="flex justify-center gap-4 flex-wrap">TV Series</div>
-    </div>
-  );
+const TVPage = () => {
+  return <MoviesTVsPage plural_endpoint={"tv"} singular_endpoint={"tv"} />;
 };
 
-export default TvPage;
+export default TVPage;

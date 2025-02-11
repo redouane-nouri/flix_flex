@@ -17,6 +17,8 @@ const SummaryCard = ({
   inspect_endpoint,
   is_favorite,
   notif,
+  plural_endpoint,
+  singular_endpoint,
 }) => {
   const [is_image_loading, set_is_image_loading] = useState(false);
   const query_client = useQueryClient();
@@ -24,20 +26,20 @@ const SummaryCard = ({
     mutationFn: () =>
       api.post("/account/null/favorite", {
         media_id: id,
-        media_type: "movie",
+        media_type: singular_endpoint,
         favorite: !is_favorite,
       }),
     onSuccess: () => {
       notif.success({
         message: "Update Successfully",
         description: is_favorite
-          ? "Movie removed from favorites list."
-          : "Movie Added to favorites list.",
+          ? "removed from favorites list."
+          : "Added to favorites list.",
         showProgress: true,
         pauseOnHover: true,
       });
       query_client.invalidateQueries({
-        queryKey: ["account", null, "favorite", "movies"],
+        queryKey: ["account", null, "favorite", plural_endpoint],
       });
     },
   });
@@ -79,7 +81,7 @@ const SummaryCard = ({
             is_favorite ? "Remove from favorites" : "Add to favorites"
           }`}
         >
-          {mutation.isPending ? (
+          {mutation.isPending || is_loading ? (
             <Spin />
           ) : (
             <HeartOutlined
