@@ -44,11 +44,11 @@ const FavoritesPage = () => {
       {notif_context}
       <TopNav selected_key="favorites" />
 
-      {movies_favorites.length === 0 && tvs_favorites.length === 0 && (
+      {(is_movies_loading || is_tvs_loading) && <Spin className="mt-7" />}
+
+      {movies_favorites?.length === 0 && tvs_favorites?.length === 0 && (
         <Empty className="mt-32" image={Empty.PRESENTED_IMAGE_SIMPLE} />
       )}
-
-      {(is_movies_loading || is_tvs_loading) && <Spin />}
 
       {!(is_movies_loading || is_tvs_loading) && (
         <div className="flex justify-center gap-4 mt-7 flex-wrap">

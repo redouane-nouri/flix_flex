@@ -19,7 +19,7 @@ function App() {
         <Route path="/tv" element={<TVPage />} />
         <Route path="/tv/:id" element={<TVDetails />} />
         <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/search" element={<SearchPage />} />
+        <Route path="/search/:query" element={<SearchPage />} />
       </Routes>
     </BrowserRouter>
   );
