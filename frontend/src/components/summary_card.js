@@ -1,6 +1,6 @@
 import { EyeOutlined, HeartOutlined } from "@ant-design/icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Card, Skeleton, Spin, Tooltip } from "antd";
+import { Card, Skeleton, Spin, Tag, Tooltip, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../lib/axios/axios";
@@ -92,7 +92,18 @@ const SummaryCard = ({
         </Tooltip>,
       ]}
     >
-      <Meta title={title} description={description} className="flex-1" />
+      <Meta
+        title={title}
+        description={
+          <div>
+            <div>{description}</div>
+            <div className="flex gap-2 mt-6">
+              <Tag color="volcano">{singular_endpoint}</Tag>
+            </div>
+          </div>
+        }
+        className="flex-1"
+      />
     </Card>
   );
 };
