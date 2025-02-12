@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Alert, Spin, Tag, Typography } from "antd";
 import React, { useState } from "react";
 import api from "../lib/axios/axios";
-import { TMDB_IMAGES_BASE_URL } from "../utils/constants";
+import { TMDB_IMAGES_BASE_URL } from "../utils/constants/constants";
 
 const DetailsCard = ({ id, endpoint }) => {
   const [video, set_video] = useState([]);

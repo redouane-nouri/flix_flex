@@ -4,7 +4,7 @@ import { Card, Skeleton, Spin, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../lib/axios/axios";
-import { TMDB_IMAGES_BASE_URL } from "../utils/constants";
+import { TMDB_IMAGES_BASE_URL } from "../utils/constants/constants";
 
 const { Meta } = Card;
 

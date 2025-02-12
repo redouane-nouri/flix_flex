@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { notification } from "antd";
 import React, { useEffect, useState } from "react";
 import Stepper from "../components/stepper";
 import SummaryCard from "../components/summary_card";
 import TopNav from "../components/top_nav";
 import api from "../lib/axios/axios";
-import { notification } from "antd";
+import { fetch_all_favorites } from "../utils/functions/functions";
 
 const MoviesTVsPage = ({ plural_endpoint, singular_endpoint }) => {
   const [fetched_page, set_fetched_page] = useState(1);
@@ -22,14 +23,9 @@ const MoviesTVsPage = ({ plural_endpoint, singular_endpoint }) => {
       null,
       "favorite",
       plural_endpoint,
-      { language: "en-US", page: 1, sort_by: "created_at.asc" },
+      { language: "en-US", sort_by: "created_at.asc" },
     ],
-    queryFn: () =>
-      api
-        .get(
-          `/account/null/favorite/${plural_endpoint}?language=en-US&page=1&sort_by=created_at.asc`,
-        )
-        .then((res) => res.data.results),
+    queryFn: () => fetch_all_favorites(plural_endpoint),
   });
 
   const mutation = useMutation({

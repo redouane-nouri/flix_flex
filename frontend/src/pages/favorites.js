@@ -3,7 +3,7 @@ import { Empty, notification, Spin } from "antd";
 import React from "react";
 import SummaryCard from "../components/summary_card";
 import TopNav from "../components/top_nav";
-import api from "../lib/axios/axios";
+import { fetch_all_favorites } from "../utils/functions/functions";
 
 const FavoritesPage = () => {
   const [notif, notif_context] = notification.useNotification();
@@ -13,30 +13,19 @@ const FavoritesPage = () => {
       null,
       "favorite",
       "movies",
-      { language: "en-US", page: 1, sort_by: "created_at.asc" },
+      { language: "en-US", sort_by: "created_at.asc" },
     ],
-    queryFn: () =>
-      api
-        .get(
-          `/account/null/favorite/movies?language=en-US&page=1&sort_by=created_at.asc`,
-        )
-        .then((res) => res.data.results),
+    queryFn: () => fetch_all_favorites("movies"),
   });
-
   const { isLoading: is_tvs_loading, data: tvs_favorites } = useQuery({
     queryKey: [
       "account",
       null,
       "favorite",
       "tv",
-      { language: "en-US", page: 1, sort_by: "created_at.asc" },
+      { language: "en-US", sort_by: "created_at.asc" },
     ],
-    queryFn: () =>
-      api
-        .get(
-          `/account/null/favorite/tv?language=en-US&page=1&sort_by=created_at.asc`,
-        )
-        .then((res) => res.data.results),
+    queryFn: () => fetch_all_favorites("tv"),
   });
 
   return (
