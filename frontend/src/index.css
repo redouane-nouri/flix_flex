@@ -10,3 +10,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.ant-card-actions {
+  margin-top: auto !important;
+  text-align: center;
+}

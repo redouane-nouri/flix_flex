@@ -1,36 +1,36 @@
 import {
   HeartOutlined,
   PlayCircleOutlined,
-  SearchOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Input, Menu } from "antd";
+import { Menu } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
+import SearchInput from "./search_input";
 
-const items = [
-  {
-    key: "movies",
-    label: <Link to="/movies">Movies</Link>,
-    icon: <PlayCircleOutlined />,
-  },
-  {
-    key: "tv",
-    label: <Link to="/tv">TV</Link>,
-    icon: <VideoCameraOutlined />,
-  },
-  {
-    key: "favorites",
-    label: <Link to="/favorites">Favorites</Link>,
-    icon: <HeartOutlined />,
-  },
-  {
-    key: "search",
-    label: <Input prefix={<SearchOutlined />} placeholder="Search..." />,
-  },
-];
+const TopNav = ({ selected_key, search_value }) => {
+  const items = [
+    {
+      key: "movies",
+      label: <Link to="/movies">Movies</Link>,
+      icon: <PlayCircleOutlined />,
+    },
+    {
+      key: "tv",
+      label: <Link to="/tv">TV</Link>,
+      icon: <VideoCameraOutlined />,
+    },
+    {
+      key: "favorites",
+      label: <Link to="/favorites">Favorites</Link>,
+      icon: <HeartOutlined />,
+    },
+    {
+      key: "search",
+      label: <SearchInput current_value={search_value} />,
+    },
+  ];
 
-const TopNav = ({ selected_key }) => {
   return (
     <Menu
       mode="horizontal"

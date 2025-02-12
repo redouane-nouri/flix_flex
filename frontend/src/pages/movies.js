@@ -1,12 +1,9 @@
 import React from "react";
-import TopNav from "../components/top_nav";
+import MoviesTVsPage from "./movies_tv_page";
 
 const MoviesPage = () => {
   return (
-    <div className="px-32 my-4 flex flex-col items-center">
-      <TopNav selected_key="movies" />
-      <div className="flex justify-center gap-4 flex-wrap">Movies</div>
-    </div>
+    <MoviesTVsPage plural_endpoint={"movies"} singular_endpoint={"movie"} />
   );
 };
 
