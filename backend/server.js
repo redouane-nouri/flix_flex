@@ -3,9 +3,11 @@ const app = express();
 const dotenv = require("dotenv");
 const session = require("express-session");
 const passport = require("passport");
+const cors = require("cors");
 const auth_router = require("./api/v1/auth");
 
 dotenv.config();
+app.use(cors({ origin: process.env.FRONTEND_BASE_URL, credentials: true }));
 app.use(express.json());
 
 app.use(
@@ -13,7 +15,7 @@ app.use(
     secret: process.env.PASSPORT_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false },
+    cookie: { secure: false, httpOnly: false },
   }),
 );
 
