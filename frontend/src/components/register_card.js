@@ -16,7 +16,7 @@ const RegsiterCard = () => {
   const mutation = useMutation({
     mutationFn: () =>
       api.post(
-        `${process.env.REACT_APP_BACKEND_BASE_URL}/auth/login`,
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/auth/register`,
         {
           username,
           password,
