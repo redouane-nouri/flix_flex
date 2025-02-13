@@ -1,4 +1,4 @@
-# Project Name
+# TMDB API
 
 TMDB API exploitation
 
@@ -39,10 +39,10 @@ PORT=3001
 npx prisma generate
 npx prisma migrate deploy
 ```
-5. Build and Run the backend:
+5. Run the backend:
 ```sh
-npm run build  # If using TypeScript, build first
-npm start      # Start the backend
+npm run build
+npm start
 ```
 
 ## Frontend Setup
